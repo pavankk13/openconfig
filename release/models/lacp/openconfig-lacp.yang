@@ -78,6 +78,10 @@ module openconfig-lacp {
           "Interface is a passive member, i.e., it participates
           with an active partner";
       }
+      enum INHERIT {
+        description
+          "Interface inherits mode from  bundle lacp mode";
+      }
     }
     description
       "Describes the LACP membership type, active or passive, of the
