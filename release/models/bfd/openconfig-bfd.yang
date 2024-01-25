@@ -266,6 +266,44 @@ module openconfig-bfd {
         each member interface of the aggregated Ethernet bundle.";
     }
   }
+  
+grouping bfd-interface-af-ipv4-config {
+    description
+    "To specify the BFD sessions on bundle member links";
+
+    leaf destination {
+      type oc-inet:ipv4-address;
+      description
+      "To specify the destination address for BFD sessions on bundle member links";
+    }
+
+    leaf fast-detect {
+      type boolean;
+      description
+        "To enable IPv4 BFD sessions on bundle member links";
+    }
+
+    leaf minimum-interval {
+      type unit32;
+      units milliseconds;
+      description
+        "To specify the minimum interval for asynchronous mode
+        control packets on IPv4 BFD sessions on bundle member links";
+    }
+
+    leaf multiplier {
+      type uint8 {
+        range "1..50";
+      }
+      description
+        "The number of packets that must be missed to declare this
+        session as down. The detection interval for the BFD session
+        is calculated by multiplying the value of the negotiated
+        transmission interval by this value.";
+
+    }
+
+  }
 
   grouping bfd-interface-state {
     // placeholder
@@ -666,6 +704,11 @@ module openconfig-bfd {
               "Configuration parameters for BFD on the specified
               interface.";
             uses bfd-interface-config;
+            container af-ipv4 {
+              description
+                "To specify the BFD sessions on bundle member links";
+              uses bfd-interface-af-ipv4-config;
+            }
           }
 
           container state {
@@ -674,11 +717,15 @@ module openconfig-bfd {
               "Operational state parameters for BFD on the specified
               interface.";
             uses bfd-interface-config;
+            container af-ipv4 {
+              description
+                "To specify the BFD sessions on bundle member links";
+              uses bfd-interface-af-ipv4-config;
+            }
             uses bfd-interface-state;
           }
 
           uses oc-if:interface-ref;
-
           uses bfd-interface-microbfd-structural;
           uses bfd-interface-peer-structural;
         }
