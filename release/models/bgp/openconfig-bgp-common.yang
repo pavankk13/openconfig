@@ -317,6 +317,32 @@ submodule openconfig-bgp-common {
         neighbor or group. The default is to not send the
         community attribute";
     }
+    container tcp-ao {
+      leaf keychain-name{
+        type string;
+        length 256;
+        description
+          "key-chain name to use";
+      }
+
+      leaf include-tcp-options{
+        type boolean;
+        description
+          "option to specify if the TCP option headers (other than TCP AO option) will be
+          included while computing the MAC digest of the packets";
+      }
+
+      leaf accept-ao-mismatch-connections{
+        type boolean;
+        description
+          "ption to accept the connection as non-TCP AO connection when
+          receives a connection from peer without TCP AO option. Similarly, if the connection is initiated from
+          one side, the peer acknowledges with TCP AO, it accepts the ACK and continues the connection.";
+      }
+
+      description
+        "Used to authenticate TCP segments";
+    }
 
     leaf description {
       type string;
