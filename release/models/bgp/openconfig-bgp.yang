@@ -278,5 +278,5 @@ module openconfig-bgp {
       uses oc-bgprib:bgp-rib-top;
     }
   }
-
+  uses bgp-top;
 }
