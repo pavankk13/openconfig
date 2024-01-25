@@ -317,6 +317,14 @@ submodule openconfig-bgp-common {
         neighbor or group. The default is to not send the
         community attribute";
     }
+
+    leaf nsr {
+      type boolean;
+      description
+        " True to enable non stop routing,
+          False to disable non stop routing";
+    }
+
     container tcp-ao {
       leaf keychain-name{
         type string;
